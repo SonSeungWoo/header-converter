@@ -9,7 +9,6 @@ package me.seungwoo;
 public class CustomException extends RuntimeException {
 
     public CustomException() {
-        //super(String.format("not found with id[%s]", id));
         super("not found");
     }
 }

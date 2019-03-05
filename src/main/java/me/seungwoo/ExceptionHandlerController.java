@@ -13,30 +13,31 @@ import org.springframework.web.bind.annotation.*;
  * Time: 16:41
  */
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionHandlerController {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ResponseBody
-    public ResponseEntity<ExResponse> handleException(Exception e, HttpHeaders httpHeaders) {
-        return new ResponseEntity<>(new ExResponse.Builder<>(e)
-                .build(), httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<ExResponse> handleException(Exception e) {
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new ExResponse.Builder<>(e.getMessage())
+                .build(), headers, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = CustomException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ResponseBody
-    public ResponseEntity<ExResponse> notFoundException(CustomException e, HttpHeaders httpHeaders) {
-        return new ResponseEntity<>(new ExResponse.Builder<>(e)
-                .build(), httpHeaders, HttpStatus.NOT_FOUND);
+    public ResponseEntity<ExResponse> customException(CustomException e) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("isSuccess", "false");
+        return new ResponseEntity<>(new ExResponse.Builder<>(e.getMessage())
+                .build(), headers, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = IllegalStateException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ResponseBody
-    public ResponseEntity<ExResponse> illegalStateException(IllegalStateException e, HttpHeaders httpHeaders) {
-        return new ResponseEntity<>(new ExResponse.Builder<>(e)
-                .build(), httpHeaders, HttpStatus.NOT_FOUND);
+    public ResponseEntity<ExResponse> illegalStateException(IllegalStateException e) {
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(new ExResponse.Builder<>(e.getMessage())
+                .build(), headers, HttpStatus.NOT_FOUND);
     }
 }

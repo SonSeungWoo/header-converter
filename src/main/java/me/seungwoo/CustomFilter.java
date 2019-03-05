@@ -26,10 +26,10 @@ public class CustomFilter implements Filter {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
         logger.info("filter start");
-        /*RequestWrapper requestWrapper = new RequestWrapper((HttpServletRequest) servletRequest);
+        RequestWrapper requestWrapper = new RequestWrapper((HttpServletRequest) servletRequest);
         String body = IOUtils.toString(requestWrapper.getBody(), request.getCharacterEncoding());
         servletRequest.setAttribute("requestBody", body);
-        filterChain.doFilter(requestWrapper, servletResponse);*/
+        filterChain.doFilter(requestWrapper, servletResponse);
         logger.info("filter end");
     }
 }
