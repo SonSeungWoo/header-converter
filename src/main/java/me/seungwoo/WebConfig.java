@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -27,13 +26,6 @@ public class WebConfig implements WebMvcConfigurer {
         registrationBean.setFilter(customFilter);
         registrationBean.addUrlPatterns("/*");
         return registrationBean;
-    }
-
-    @Bean  // Magic entry
-    public DispatcherServlet dispatcherServlet() {
-        DispatcherServlet ds = new DispatcherServlet();
-        ds.setThrowExceptionIfNoHandlerFound(true);
-        return ds;
     }
 
 }
