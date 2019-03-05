@@ -24,7 +24,7 @@ public class MainController {
     @GetMapping("/header")
     public ResponseEntity<ExResponse> test(@RequestHeader HttpHeaders httpHeaders){
         List<Person> personList = personRepository.findAll();
-        throw new CustomException();
+        throw new CustomException(httpHeaders);
         /*return new ResponseEntity<>(
                 new ExResponse.Builder<>(personList)
                         .build(), httpHeaders, HttpStatus.OK);*/

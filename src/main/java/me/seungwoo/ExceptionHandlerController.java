@@ -28,9 +28,10 @@ public class ExceptionHandlerController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ExResponse> customException(CustomException e) {
         HttpHeaders headers = new HttpHeaders();
+        log.info("getHttpHeaders : {}",e.getHttpHeaders());
         headers.set("isSuccess", "false");
         return new ResponseEntity<>(new ExResponse.Builder<>(e.getMessage())
-                .build(), headers, HttpStatus.NOT_FOUND);
+                .build(), e.getHttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = IllegalStateException.class)
