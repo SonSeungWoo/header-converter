@@ -25,11 +25,9 @@ public class CustomFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
-        logger.info("filter start");
         RequestWrapper requestWrapper = new RequestWrapper((HttpServletRequest) servletRequest);
         String body = IOUtils.toString(requestWrapper.getBody(), request.getCharacterEncoding());
         servletRequest.setAttribute("requestBody", body);
         filterChain.doFilter(requestWrapper, servletResponse);
-        logger.info("filter end");
     }
 }
