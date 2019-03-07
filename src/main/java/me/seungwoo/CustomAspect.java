@@ -33,7 +33,6 @@ public class CustomAspect {
     public Object doAround(ProceedingJoinPoint joinPoint, HttpHeaders httpHeaders) throws Throwable {
         StopWatch sw = new StopWatch();
         sw.start();
-
         // 대상 메서드 실행 전 trId 없으면 생성
         Object result = joinPoint.proceed();
 
@@ -46,7 +45,7 @@ public class CustomAspect {
     }
 
     @AfterThrowing(value = "execution(* me.seungwoo.*Controller.* (..)) && args(httpHeaders, ..)", throwing="e")
-    public void doAfter(HttpHeaders httpHeaders, Throwable e) {
-        System.out.println("afterThrowingAdvice() called: " + e);
+    public void doAfterThrowing(HttpHeaders httpHeaders, Throwable e) {
+        log.error("doAfterThrowing called: {}", e);
     }
 }

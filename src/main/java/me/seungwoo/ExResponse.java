@@ -10,21 +10,49 @@ import lombok.Data;
  */
 @Data
 public class ExResponse<T> {
-    private T response;
+    private Boolean isSucceed;
+    private Boolean isWarning;
+    private String error;
+    private String warning;
+    private T result;
 
     public ExResponse() {
 
     }
 
     private ExResponse(ExResponse.Builder<T> builder) {
-        this.response = builder.response;
+        this.isSucceed = builder.isSucceed;
+        this.isWarning = builder.isWarning;
+        this.error = builder.error;
+        this.warning = builder.warning;
+        this.result = builder.result;
     }
 
     public static class Builder<T> {
-        private T response;
+        private Boolean isSucceed;
+        private Boolean isWarning;
+        private String error;
+        private String warning;
+        private T result;
 
-        public Builder(T response) {
-            this.response = response;
+        public Builder(T result) {
+            this.result = result;
+        }
+
+        public Builder(T result, String error, String warning) {
+            this.result = result;
+            this.error = error;
+            this.warning = warning;
+        }
+
+        public ExResponse.Builder setIsSucceed(Boolean isSucceed) {
+            this.isSucceed = isSucceed;
+            return this;
+        }
+
+        public ExResponse.Builder setIsWarning(Boolean isWarning) {
+            this.isWarning = isWarning;
+            return this;
         }
 
         public ExResponse build() {
