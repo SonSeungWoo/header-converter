@@ -9,7 +9,10 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StopWatch;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
@@ -31,6 +34,9 @@ public class CustomAspect {
 
     @Around("execution(* me.seungwoo.*Controller.* (..)) && args(httpHeaders, ..)")
     public Object doAround(ProceedingJoinPoint joinPoint, HttpHeaders httpHeaders) throws Throwable {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpServletRequest request = attr.getRequest();
+        System.out.println(request.getAttribute("requestBody"));
         StopWatch sw = new StopWatch();
         sw.start();
         // 대상 메서드 실행 전 trId 없으면 생성
